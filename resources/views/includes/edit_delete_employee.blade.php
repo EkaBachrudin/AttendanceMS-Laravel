@@ -1,5 +1,5 @@
 <!-- Edit -->
-<div class="modal fade" id="edit{{ $employee->name }}">
+<div class="modal fade" id="edit<?=str_replace(' ', '_', $employee->name)?>">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,8 +28,8 @@
                             required>
 
                     </div>
-                 
-                  
+
+
                     <div class="form-group">
                         <label for="email" class="col-sm-3 control-label">Email</label>
 
@@ -66,11 +66,11 @@
 </div>
 
 <!-- Delete -->
-<div class="modal fade" id="delete{{ $employee->name }}">
+<div class="modal fade" id="delete<?=str_replace(' ', '_', $employee->name)?>">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header " style="align-items: center">
-               
+
               <h4 class="modal-title "><span class="employee_id">Delete Employee</span></h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>

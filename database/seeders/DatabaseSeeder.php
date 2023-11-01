@@ -8,6 +8,7 @@ use App\Models\Role;
 use Hash;
 use Spatie\Permission\Traits\HasRoles;
 use DB;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -17,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user= User::create([
+        $user = User::create([
             'name' => 'Admin',
             'email' => 'admin@mail.com',
             'password' => Hash::make('codeastro.com'),
@@ -27,5 +28,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Adminstrator',
         ]);
         $user->roles()->sync($role->id);
+        $role = Role::create([
+            'slug' => 'user',
+            'name' => 'User',
+        ]);
     }
 }

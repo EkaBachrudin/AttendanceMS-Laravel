@@ -27,16 +27,16 @@ class CheckController extends Controller
                                 ->first()
                         ) {
                             $data = new Attendance();
-                            
+
                             $data->emp_id = $key;
                             $emp_req = Employee::whereId($data->emp_id)->first();
-                            $data->attendance_time = date('H:i:s', strtotime($emp_req->schedules->first()->time_in));
+                            $data->attendance_time = date('H:i:s');
                             $data->attendance_date = $keys;
-                            
+
                             $emps = date('H:i:s', strtotime($employee->schedules->first()->time_in));
-                            if (!($emps > $data->attendance_time)) {
+                            if (!($emps >= $data->attendance_time)) {
                                 $data->status = 0;
-                           
+
                             }
                             $data->save();
                         }
@@ -57,13 +57,13 @@ class CheckController extends Controller
                             $data = new Leave();
                             $data->emp_id = $key;
                             $emp_req = Employee::whereId($data->emp_id)->first();
-                            $data->leave_time = $emp_req->schedules->first()->time_out;
+                            $data->leave_time = date('H:i:s');
                             $data->leave_date = $keys;
                             if ($employee->schedules->first()->time_out <= $data->leave_time) {
                                 $data->status = 1;
-                                
+
                             }
-                            
+
                             $data->save();
                         }
                     }
