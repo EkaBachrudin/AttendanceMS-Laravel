@@ -1,4 +1,35 @@
 @extends('layouts.master')
+
+@section('css')
+    <!-- Table css -->
+    <link href="{{ URL::asset('plugins/RWD-Table-Patterns/dist/css/rwd-table.min.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <style>
+        .first{
+            color:white;
+            position: absolute;
+            width: 120px;
+            background-color: #343a40;
+            z-index:1;
+            text-overflow:ellipsis;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+        }
+        body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: orange;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: blue;    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid orange;  /* creates padding around scroll thumb */
+}
+    </style>
+    @endsection
+
 @section('content')
 
     <div class="card">
@@ -6,13 +37,13 @@
             Attendance Sheet Report
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-md table-hover" id="printTable">
+            <div data-pattern="priority-columns">
+                <table id="datatable-buttons" class="table-responsive table table-hover table-striped nowrap" style="width: 100%;" style="overflow-y: scroll;">
                 <thead class="thead-dark">
                         <tr >
 
-                            <th>Employee</th>
-                            <th>Position</th>
+                            <th data-priority="1">Employee &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
+                            <th data-priority="2">Position</th>
                             <!-- <th>ID</th> -->
 							<!-- Log on to codeastro.com for more projects! -->
                             @php
@@ -24,15 +55,15 @@
                                 }
 
                             @endphp
+                            <?php $i=3 ?>
                             @foreach ($dates as $date)
-                            <th style="">
+                            <th data-priority="{{ $i }}" style="">
 
 
                                     {{ $date }}
 
-                        </th>
-
-
+                            </th>
+                            <?php $i++ ?>
                             @endforeach
 
                         </tr>
@@ -50,7 +81,7 @@
 
 
                             <tr>
-                                <td>{{ $employee->name }}</td>
+                                <td class="first">{{ $employee->name }}</td>
                                 <td>{{ $employee->position }}</td>
                                 <!-- <td>{{ $employee->id }}</td> -->
 								<!-- Log on to codeastro.com for more projects! -->
@@ -129,4 +160,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
+
+@endsection
+
+@section('script')
+    <script>
+        $(function() {
+            $('.table-responsive').responsiveTable({
+                addDisplayAllBtn: 'btn btn-primary'
+            });
+
+            $('.table').dataTable( {
+                "searching": false
+            } );
+        });
+
+        var myDiv = $('.first');
+        myDiv.text(myDiv.text().substring(0,10))
+    </script>
 @endsection
