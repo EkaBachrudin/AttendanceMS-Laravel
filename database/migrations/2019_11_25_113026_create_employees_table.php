@@ -14,7 +14,7 @@ class CreateEmployeesTable extends Migration
     public function up()
     {
         Schema::create('employees', function (Blueprint $table) {
-          
+
             $table->Increments('id')->from(111)->unsigned();
             $table->string('name');
             $table->string('position');
@@ -25,7 +25,15 @@ class CreateEmployeesTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        
+
+        Schema::create('employee_users', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+            $table->integer('employee_id')->unsigned();
+
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+        });
     }
 
     /**
@@ -35,6 +43,13 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
+        Schema::table('employee_users', function (Blueprint $table) {
+
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['employee_id']);
+        });
+
+        Schema::dropIfExists('employee_users');
         Schema::dropIfExists('employees');
     }
 }

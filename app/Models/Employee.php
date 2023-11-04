@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory, Notifiable;
-    
+
     public function getRouteKeyName()
     {
         return 'name';
@@ -19,7 +19,7 @@ class Employee extends Model
         'name', 'email', 'pin_code'
     ];
 
-  
+
     protected $hidden = [
         'pin_code', 'remember_token',
     ];
@@ -50,8 +50,8 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\Models\Schedule', 'schedule_employees', 'emp_id', 'schedule_id');
     }
-
-
-    
-
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'employee_users', 'employee_id', 'user_id');
+    }
 }
