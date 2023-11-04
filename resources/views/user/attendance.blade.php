@@ -1,7 +1,9 @@
 @extends('user.layouts.master')
 
 @section('css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ URL::asset('assets/js/webcam.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/sweetalert.min.js') }}"></script>
     <style>
         .mobile{
             max-width: 600px;
@@ -87,7 +89,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Clock In</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -103,6 +105,7 @@
                     <br/>
 
                     <input type="hidden" name="image" class="image-tag">
+                    <input type="hidden" name="user" value="{{$user->id}}">
                 </div>
                 <div style="width: 100%;display: none">
                     <div id="results"></div>
@@ -173,8 +176,42 @@
                 $(".image-tag").val(data_uri);
                 document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
 
-                if($(".image-tag").val())  link.click();
+                if($(".image-tag").val())  submitattn();
             } );
+        }
+
+        function submitattn() {
+            var image = $("input[name=image]").val();
+            var user = $("input[name=user]").val();
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/webcam",
+                method: "POST",
+                data: {user : user, image: image},
+                dataType: "json"
+            });
+
+            request.done(function( resp ) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your attendance has been saved',
+                    showConfirmButton: false,
+                    timer: 1600,
+                    backdrop: `
+                        white
+                    `
+                });
+                setTimeout(() => {
+                    location.reload();
+                }, 1500)
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
         }
 
         getDay();

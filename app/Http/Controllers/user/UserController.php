@@ -10,11 +10,16 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('user.attendance');
+        $user = auth()->user();
+        return view('user.attendance')->with(['user' => $user]);
     }
 
     public function store(Request $request)
     {
+        //check if user has clockin / clockout this day
+        $user = auth()->user();
+        if ($user->id != $request->user) return response()->json([], 400);
+
         $img = $request->image;
         $folderPath = "uploads/";
 
@@ -28,6 +33,8 @@ class UserController extends Controller
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
 
-        dd('Image uploaded successfully: ' . $fileName);
+        return response()->json([
+            'message' => 'Success !',
+        ], 200);
     }
 }
