@@ -14,7 +14,7 @@ class UserController extends Controller
         return view('user.attendance')->with(['user' => $user]);
     }
 
-    public function store(Request $request)
+    public function clockin(Request $request)
     {
         //check if user has clockin / clockout this day
         $user = auth()->user();
@@ -35,6 +35,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Success !',
+            'data' => $request->latlong
         ], 200);
     }
 }

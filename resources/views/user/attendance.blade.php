@@ -106,6 +106,8 @@
 
                     <input type="hidden" name="image" class="image-tag">
                     <input type="hidden" name="user" value="{{$user->id}}">
+                    <input type="hidden" name="lat">
+                    <input type="hidden" name="long">
                 </div>
                 <div style="width: 100%;display: none">
                     <div id="results"></div>
@@ -183,13 +185,15 @@
         function submitattn() {
             var image = $("input[name=image]").val();
             var user = $("input[name=user]").val();
+            var lat = $("input[name=lat]").val() ?? '';
+            var long = $("input[name=long]").val() ?? '';
             var request = $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/webcam",
+                url: "/clockin",
                 method: "POST",
-                data: {user : user, image: image},
+                data: {user : user, image: image, latlong: `${lat},${long}`},
                 dataType: "json"
             });
 
@@ -214,6 +218,25 @@
             });
         }
 
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong when activate location!',
+                    footer: '<a _blank href="https://support.google.com/chrome/answer/142065?hl=en">Why do I have this issue?</a>'
+                })
+            }
+        }
+
+        function showPosition(position) {
+            $("input[name=lat]").val(position.coords.latitude);
+            $("input[name=long]").val(position.coords.longitude);
+        }
+
+        getLocation();
         getDay();
         startTime();
     </script>
