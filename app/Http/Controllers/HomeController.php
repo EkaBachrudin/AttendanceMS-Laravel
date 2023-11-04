@@ -29,7 +29,7 @@ class HomeController extends Controller
         if ($role === 1) {
             return redirect('/admin');
         } else {
-            return redirect('/');
+            return redirect('/user');
         }
 
     }
