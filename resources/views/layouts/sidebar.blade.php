@@ -5,7 +5,7 @@
                     <!--- Sidemenu -->
 					<!-- Log on to codeastro.com for more projects! -->
                     <div id="sidebar-menu">
-                        
+
                         <!-- Left Menu Start -->
                         <ul class="metismenu" id="side-menu">
                             <li class="menu-title">Main</li>
@@ -14,7 +14,7 @@
                                     <i class="ti-home"></i> <span> Dashboard </span>
                                 </a>
                             </li>
-                            
+
 
                             <li>
                             <a href="/employees" class="waves-effect {{ request()->is("employees") || request()->is("/employees/*") ? "mm active" : "" }}"><i class="ti-user"></i><span> Employees </span></a>
@@ -22,7 +22,7 @@
                                     <li>
                                         <i class="dripicons-view-apps"></i><span>Employees List</span></a>
                                     </li>
-                                   
+
                                 </ul> -->
                             </li>
 							<!-- Log on to codeastro.com for more projects! -->
@@ -64,12 +64,12 @@
                                     <i class="dripicons-alarm"></i> <span> Over Time </span>
                                 </a>
                             </li> -->
-                            <li class="menu-title">Tools</li>
+                            {{-- <li class="menu-title">Tools</li>
                             <li class="">
                                 <a href="{{ route("finger_device.index") }}" class="waves-effect {{ request()->is("finger_device") || request()->is("finger_device/*") ? "mm active" : "" }}">
                                     <i class="fas fa-fingerprint"></i> <span> Biometric Device </span>
                                 </a>
-                            </li>
+                            </li> --}}
 
                         </ul>
 						<!-- Log on to codeastro.com for more projects! -->

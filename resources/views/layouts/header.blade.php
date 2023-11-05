@@ -5,7 +5,7 @@
 <div class="topbar-left">
     <a href="/" class="logo">
         <span>
-                <h1 style="color: white; ">S A M S</h1>
+                <h1 style="color: white; ">S U N Y</h1>
             </span>
         <i>
             <h1>A</h1>
@@ -31,7 +31,7 @@
             </a>
         </li>
 
-        
+
         <li class="dropdown notification-list">
             <div class="dropdown notification-list nav-pro-img">
                 <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -40,7 +40,7 @@
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <!-- item-->
                     <!-- <a class="dropdown-item" href="#"><i class="mdi mdi-account-circle m-r-5"></i> Profile</a> -->
-            
+
                     {{-- <a class="dropdown-item d-block" href="#"><span class="badge badge-success float-right">11</span><i class="mdi mdi-settings m-r-5"></i> Settings</a> --}}
                     <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline m-r-5"></i> Lock screen</a>
                     <div class="dropdown-divider"></div>

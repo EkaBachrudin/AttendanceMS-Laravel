@@ -26,11 +26,10 @@ class HomeController extends Controller
     {
         $role = auth()->user()->roles[0]->id;
         $checkrole = explode(',', $role);
-        if ($role === 1) {
+        if ($role == 1) {
             return redirect('/admin');
         } else {
             return redirect('/user');
         }
-
     }
 }

@@ -39,10 +39,8 @@
                                         <th data-priority="2">EmpID</th>
                                         <th data-priority="3">Name</th>
                                         <th data-priority="4">Attendance</th>
-
-                                        <th data-priority="6">Time In</th>
-                                        <th data-priority="7">Time Out</th>
-
+                                        <th data-priority="7">Image</th>
+                                        <th data-priority="8">Location</th>
 
                                     </tr>
                                 </thead>
@@ -61,9 +59,9 @@
                                                     <span class="badge badge-danger badge-pill float-right">Late</span>
                                                 @endif
                                             </td>
-
-                                            <td>{{ $attendance->employee->schedules->first()->time_in }} </td>
-                                            <td>{{ $attendance->employee->schedules->first()->time_out }}</td>
+                                            <td> <a target="_blank" href="<?php echo asset("storage/uploads/$attendance->image")?>">Open image</a> </td>
+                                            <td> <a target="_blank" href="http://maps.google.com/maps?q={{ $attendance->latlong }}&ll={{ $attendance->latlong }}&z=17">Open Location</a></td>
+                                            {{-- <img src="<?php echo asset("storage/uploads/$attendance->image")?>"></img> --}}
                                         </tr>
 
                                     @endforeach

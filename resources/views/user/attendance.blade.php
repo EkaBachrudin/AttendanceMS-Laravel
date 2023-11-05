@@ -66,7 +66,6 @@
 @section('content')
 <div class="top-section mobile">
     <h5 class="text-center">Absen</h5>
-
     <h2 id="clock" class="text-center mt-4"></h2>
     <h6 class="text-center"><span class="hari"></span>, <span class="tanggal"></span> <span class="bulan"></span> <span class="tahun"></span></h6>
     <div class="card">
@@ -213,7 +212,7 @@
         }
 
         function getDay() {
-            const days = ["Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Minggu"];
+            const days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
             const month = ["Jan","Feb","March","April","May","June","July","August","Sep","Oct","Nov","Dec"];
             const d = new Date();
             let day = days[d.getDay()];

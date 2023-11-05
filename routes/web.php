@@ -8,6 +8,10 @@ use App\Http\Controllers\FingerDevicesControlller;
 Route::get('redirects', 'App\Http\Controllers\HomeController@index');
 
 Route::get('/', function () {
+    $role = auth()->user() ? auth()->user()->roles[0]->id : null;
+    if ($role === 2) {
+        return redirect('/user');
+    }
     return view('welcome');
 })->name('welcome');
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended')->name('attended');

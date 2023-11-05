@@ -1,5 +1,5 @@
 
-    
+
         .full-height {
             height: 100vh;
         }
@@ -43,10 +43,8 @@
         }
 
         .clockStyle {
-            font-size: 120px;
-            margin: 0 150px;
-            padding: 10px;
+            font-size: 50px;
             color: #ffffff;
-            width: 900px;
+            width: 100vw;
             text-align: center;
         }

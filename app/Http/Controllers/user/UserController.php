@@ -87,7 +87,7 @@ class UserController extends Controller
 
     private function uploadImage($img)
     {
-        $folderPath = "uploads/";
+        $folderPath = "public/uploads/";
 
         $image_parts = explode(";base64,", $img);
         $image_type_aux = explode("image/", $image_parts[0]);
