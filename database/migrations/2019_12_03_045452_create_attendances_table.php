@@ -21,6 +21,8 @@ class CreateAttendancesTable extends Migration
             $table->boolean('state')->default(0);
             $table->time('attendance_time')->default(date("H:i:s"));;
             $table->date('attendance_date')->default(date("Y-m-d"));;
+            $table->string('latlong')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('status')->default(1);
             $table->foreign('emp_id')->references('id')->on('employees')->onDelete('cascade');
             $table->boolean('type')->unsigned()->default(0);
@@ -37,9 +39,9 @@ class CreateAttendancesTable extends Migration
     {
         Schema::table('attendances', function (Blueprint $table) {
             $table->dropForeign(['emp_id']);
-           });
-   
-     
+        });
+
+
 
         Schema::dropIfExists('attendances');
     }

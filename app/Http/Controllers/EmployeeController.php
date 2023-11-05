@@ -74,6 +74,11 @@ class EmployeeController extends Controller
             $schedule = Schedule::whereSlug($request->schedule)->first();
 
             $employee->schedules()->attach($schedule);
+
+
+            $user = User::find($employee->first()->users[0]->id);
+            $user->email = $request->email;
+            $user->save();
         }
 
         flash()->success('Success', 'Employee Record has been Updated successfully !');

@@ -46,6 +46,10 @@
             font-weight: 600;
         }
 
+        .daftar-absensi-list{
+            font-weight: 700;
+        }
+
         .lihat-log{
             font-weight: 600;
             color: rgba(0, 0, 0, 0.579);
@@ -71,8 +75,8 @@
                 Jadwal: <span class="hari"></span>, <span class="tanggal"></span> <span class="bulan"></span> <span class="tahun"></span>
                 <hr>
                 <div class="d-flex justify-content-between p-3">
-                    <button type="button" class="btn btn-primary" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Clock in</button>
-                    <button type="button" class="btn btn-primary">Clock out</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCLockIn" {{$attendance->count() > 0 ? 'disabled' : ''}}>Clock in</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCLockOut" {{$leave->count() > 0 ? 'disabled' : ''}}>Clock out</button>
                 </div>
             </div>
         </div>
@@ -83,13 +87,23 @@
         <div class="daftar-absensi">Daftar absensi </div>
         <div class="lihat-log">Lihat Log</div>
     </div>
+    @if($attendance->count() > 0)
+        <div class="daftar-absensi daftar-absensi-list mt-4 d-flex justify-content-between">
+            <div>Clock in</div> <div>{{ $attendance[0]->attendance_time}}</div>
+        </div>
+    @endif
+    @if($leave->count() > 0)
+        <div class="daftar-absensi daftar-absensi-list mt-4 d-flex justify-content-between">
+            <div>Clock out </div> <div>{{ $leave[0]->leave_time}}</div>
+        </div>
+    @endif
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCLockIn" tabindex="-1" role="dialog" aria-labelledby="modalCLockInLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Clock In</h5>
+        <h5 class="modal-title" id="modalCLockInLabel">Clock In</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -126,6 +140,48 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="modalCLockOut" tabindex="-1" role="dialog" aria-labelledby="modalCLockOutLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCLockOutLabel">Clock Out</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <form method="POST" action="{{ route('webcam.clockout') }}">
+            @csrf
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center" style="width: 100%">
+                        <div id="my_camera_clockout"></div>
+                    </div>
+                    <br/>
+
+                    <input type="hidden" name="imageclockout" class="image-tag-clockout">
+                    <input type="hidden" name="userclockout" value="{{$user->id}}">
+                    <input type="hidden" name="latclockout">
+                    <input type="hidden" name="longclockout">
+                </div>
+                <div style="width: 100%;display: none">
+                    <div id="results_clockout"></div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <br/>
+                    <input type=button value="Clock Out" class="btn btn-primary" onClick="take_snapshotclockout()">
+                    <button class="btn btn-primary d-none" id="submit-img-clockout">Submit</button>
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('script')
@@ -138,6 +194,7 @@
         });
 
         Webcam.attach( '#my_camera' );
+        Webcam.attach( '#my_camera_clockout' );
 
         function startTime() {
             const today = new Date();
@@ -146,7 +203,7 @@
             let s = today.getSeconds();
             m = checkTime(m);
             s = checkTime(s);
-            document.getElementById('clock').innerHTML =  h + ":" + m + ":" + s;
+            document.getElementById('clock').innerHTML =  h + ":" + m;
             setTimeout(startTime, 1000);
         }
 
@@ -195,6 +252,53 @@
                 method: "POST",
                 data: {user : user, image: image, latlong: `${lat},${long}`},
                 dataType: "json"
+            });
+
+            request.done(function( resp ) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your attendance has been saved',
+                    showConfirmButton: false,
+                    timer: 1600,
+                    backdrop: `
+                        white
+                    `
+                });
+                setTimeout(() => {
+                    location.reload();
+                }, 1500)
+            });
+
+            request.fail(function( jqXHR, textStatus ) {
+                alert( "Request failed: " + textStatus );
+            });
+        }
+
+        function take_snapshotclockout() {
+            Webcam.snap( function(data_uri) {
+                var link = document.getElementById('submit-img-clockout');
+
+                $(".image-tag-clockout").val(data_uri);
+                document.getElementById('results_clockout').innerHTML = '<img src="'+data_uri+'"/>';
+
+                if($(".image-tag-clockout").val())  submitattnclockout();
+            } );
+        }
+
+        function submitattnclockout() {
+            var image = $("input[name=imageclockout]").val();
+            var user = $("input[name=userclockout]").val();
+            var lat = $("input[name=latclockout]").val() ?? '';
+            var long = $("input[name=longclockout]").val() ?? '';
+            var request = $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/clockout",
+                method: "POST",
+                data: {user : user, image: image, latlong: `${lat},${long}`},
+
             });
 
             request.done(function( resp ) {

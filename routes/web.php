@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
 Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['user']], function () {
     Route::get('/user', '\App\Http\Controllers\user\UserController@index')->name('user');
     Route::post('clockin', '\App\Http\Controllers\user\UserController@clockin')->name('webcam.capture');
+    Route::post('clockout', '\App\Http\Controllers\user\UserController@clockout')->name('webcam.clockout');
 });
 
 Route::group(['middleware' => ['auth']], function () {
