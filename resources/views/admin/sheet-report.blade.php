@@ -57,7 +57,7 @@ body::-webkit-scrollbar-thumb {
                             @endphp
                             
                             @foreach ($dates as $date)
-                            <th style="">
+                            <th class="not-export-col">
 
 
                                     {{ $date }}
