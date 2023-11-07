@@ -65,8 +65,7 @@ body::-webkit-scrollbar-thumb {
                             </th>
                             
                             @endforeach
-                            <th>Absent</th>
-                            <th>Absent</th>
+
                         </tr>
                     </thead>
 
@@ -136,9 +135,9 @@ body::-webkit-scrollbar-thumb {
                                             <i class="fa fa-check text-danger"></i>
                                             @endif
                                             &nbsp{{$check_leave->leave_time}}
-                                        @else
-                                        <i class="fas fa-times text-danger"></i>
-                                        @endif
+                                       @else
+                                       <i class="fas fa-times text-danger"></i>
+                                       @endif
 
 
                                         </div>
