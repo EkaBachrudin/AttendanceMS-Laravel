@@ -170,7 +170,7 @@ body::-webkit-scrollbar-thumb {
                 addDisplayAllBtn: 'btn btn-primary'
             });
 
-            $('.table').dataTable( {
+            $('#datatable-buttons').dataTable( {
                 "searching": false,
                 buttons: [
                     {
