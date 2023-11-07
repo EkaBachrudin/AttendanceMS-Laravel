@@ -165,8 +165,25 @@ body::-webkit-scrollbar-thumb {
 @section('script')
     <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
     <script>
-        $(function() {
-        
-        });
+        $(document).ready(function() {
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                buttons: [
+                    {
+                        text: 'export',
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                        columns: ':visible:not(.not-export-col)'
+                        }
+                    },
+                    {
+                        text: 'excel',
+                        exportOptions: {
+                            columns: [1,2,3]
+                        }
+                    },'colvis'
+                ]
+            });
+        } );
     </script>
 @endsection
