@@ -112,39 +112,33 @@ body::-webkit-scrollbar-thumb {
                                     @endphp
                                     <td>
 
-                                       <table>
-                                        <tr>
-                                            <td>
-                                            <div class="form-check form-check-inline " style="max-width: 100px">
+                                        <div class="form-check form-check-inline " style="max-width: 100px">
 
-                                                @if (isset($check_attd))
+                                            @if (isset($check_attd))
 
-                                                @if ($check_attd->status==1)
-                                                <i class="fa fa-check text-success"></i>
-                                                @else
-                                                <i class="fa fa-check text-danger"></i>
-                                                @endif
-                                                &nbsp{{$check_attd->attendance_time	}}
-                                                @else
-                                                <i class="fas fa-times text-danger"></i>
-                                                @endif
-                                                </div>
-                                                <div class="form-check form-check-inline">
+                                                 @if ($check_attd->status==1)
+                                                 <i class="fa fa-check text-success"></i>
+                                                 @else
+                                                 <i class="fa fa-check text-danger"></i>
+                                                 @endif
+                                                 &nbsp{{$check_attd->attendance_time	}}
+                                            @else
+                                            <i class="fas fa-times text-danger"></i>
+                                            @endif
+                                        </div>
+                                        <div class="form-check form-check-inline">
 
-                                                @if (isset($check_leave))
+                                            @if (isset($check_leave))
 
-                                                @if ($check_leave->status==1)
-                                                <i class="fa fa-check text-success"></i>
-                                                @else
-                                                <i class="fa fa-check text-danger"></i>
-                                                @endif
-                                                &nbsp{{$check_leave->leave_time}}
-                                                @else
-                                                <i class="fas fa-times text-danger"></i>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                       </table>
+                                            @if ($check_leave->status==1)
+                                            <i class="fa fa-check text-success"></i>
+                                            @else
+                                            <i class="fa fa-check text-danger"></i>
+                                            @endif
+                                            &nbsp{{$check_leave->leave_time}}
+                                        @else
+                                        <i class="fas fa-times text-danger"></i>
+                                        @endif
 
 
                                         </div>
