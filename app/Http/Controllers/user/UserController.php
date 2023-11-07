@@ -74,7 +74,7 @@ class UserController extends Controller
         $data->leave_date = date('Y-m-d');
         $data->latlong = $request->latlong;
         if ($employee->schedules->first()->time_out <= $data->leave_time) {
-            $data->status = 1;
+            $data->status = 0;
         }
         $data->save();
 

@@ -65,7 +65,10 @@ body::-webkit-scrollbar-thumb {
                             </th>
                             
                             @endforeach
-
+                            <!-- <th>No Clockin</th>
+                            <th>No Clockout</th>
+                            <th>Late Clockin</th>
+                            <th>Early Clockout</th> -->
                         </tr>
                     </thead>
 
