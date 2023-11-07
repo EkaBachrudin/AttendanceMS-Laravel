@@ -171,27 +171,23 @@ body::-webkit-scrollbar-thumb {
             });
 
             $('#datatable-buttons').dataTable( {
-                "searching": false,
+                searching: false,
+                dom: 'Bfrtip',
                 buttons: [
                     {
-                        extend: 'copyHtml5',
-                        exportOptions: {
-                            columns: [ 0, 1, 2 ]
-                        }
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: [ 0, 1, 2 ]
-                        }
-                    },
-                    {
+                        text: 'export',
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [ 0, 1, 2 ]
+                        columns: ':visible:not(.not-export-col)'
                         }
                     },
-                    'colvis'
+                    {
+                        text: 'pdf',
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                        columns: [1,2,3]
+                        }
+                    },'colvis'
                 ]
             } );
         });
