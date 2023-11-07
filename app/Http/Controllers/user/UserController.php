@@ -15,10 +15,11 @@ class UserController extends Controller
 {
     public function index()
     {
-        //check if user has clockin / clockout this day for disabled button
-        $attendance = Attendance::whereDate('created_at', Carbon::today())->get();
-        $leave = Leave::whereDate('created_at', Carbon::today())->get();
         $user = auth()->user();
+        $employeeId = User::find($request->user)->employees->first()->id;
+        $attendance = Attendance::where('emp_id', $employeeId)->whereDate('created_at', Carbon::today())->get();
+        $leave = Leave::where('emp_id', $employeeId)->whereDate('created_at', Carbon::today())->get();
+        
         return view('user.attendance')->with([
             'user' => $user,
             'attendance' => $attendance,
