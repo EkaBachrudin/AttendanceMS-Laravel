@@ -164,12 +164,8 @@ body::-webkit-scrollbar-thumb {
 
 @section('script')
     <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
-
-@endsection
-
-@section('script')
     <script>
-        $(function() {
+           $(function() {
             $('.table-responsive').responsiveTable({
                 addDisplayAllBtn: 'btn btn-primary'
             });
@@ -199,8 +195,5 @@ body::-webkit-scrollbar-thumb {
                 ]
             } );
         });
-
-        var myDiv = $('.first');
-        myDiv.text(myDiv.text().substring(0,10))
     </script>
 @endsection
