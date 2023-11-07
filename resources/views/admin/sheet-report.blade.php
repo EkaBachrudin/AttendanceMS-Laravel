@@ -165,15 +165,8 @@ body::-webkit-scrollbar-thumb {
 @section('script')
     <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
     <script>
-           $(function() {
-            $('.table-responsive').responsiveTable({
-                addDisplayAllBtn: 'btn btn-primary'
-            });
-
-            var table = $('#datatable-buttons').DataTable({
-                lengthChange: false,
-                buttons: ['excel', 'pdf', 'colvis']
-            });
+        $(function() {
+        
         });
     </script>
 @endsection

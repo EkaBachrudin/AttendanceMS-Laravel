@@ -8,7 +8,10 @@ $(document).ready(function() {
     $('#datatable').DataTable();
 
     //Buttons examples
-    //Set on page blade for config
+    var table = $('#datatable-buttons').DataTable({
+        lengthChange: false,
+        buttons: ['pdf', 'colvis']
+    });
 
     table.buttons().container()
         .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
