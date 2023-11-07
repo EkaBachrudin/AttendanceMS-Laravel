@@ -170,26 +170,10 @@ body::-webkit-scrollbar-thumb {
                 addDisplayAllBtn: 'btn btn-primary'
             });
 
-            $('#datatable-buttons').dataTable( {
-                searching: false,
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        text: 'export',
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                        columns: ':visible:not(.not-export-col)'
-                        }
-                    },
-                    {
-                        text: 'pdf',
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                        columns: [1,2,3]
-                        }
-                    },'colvis'
-                ]
-            } );
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                buttons: ['excel', 'pdf', 'colvis']
+            });
         });
     </script>
 @endsection
