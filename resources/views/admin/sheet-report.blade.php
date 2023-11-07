@@ -55,15 +55,15 @@ body::-webkit-scrollbar-thumb {
                                 }
 
                             @endphp
-                            <?php $i=3 ?>
+                            
                             @foreach ($dates as $date)
-                            <th data-priority="{{ $i }}" style="">
+                            <th style="">
 
 
                                     {{ $date }}
 
                             </th>
-                            <?php $i++ ?>
+                            
                             @endforeach
 
                         </tr>
