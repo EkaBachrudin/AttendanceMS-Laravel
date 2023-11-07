@@ -166,27 +166,7 @@ body::-webkit-scrollbar-thumb {
     <script src="{{ URL::asset('plugins/RWD-Table-Patterns/dist/js/rwd-table.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            var table = $('#datatable-buttons').DataTable({
-                lengthChange: false,
-                buttons: [
-                    {
-                        text: 'export',
-                        extend: 'pdfHtml5',
-                        exportOptions: {
-                        columns: ':visible:not(.not-export-col)'
-                        }
-                    },
-                    {
-                        text: 'excel',
-                        exportOptions: {
-                            columns: [1,2,3]
-                        }
-                    },'colvis'
-                ]
-            });
-
-            table.buttons().container()
-                .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+         
         } );
     </script>
 @endsection
