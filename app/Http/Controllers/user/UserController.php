@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $employeeId = User::find($request->user)->employees->first()->id;
+        $employeeId = User::find($user->id)->employees->first()->id;
         $attendance = Attendance::where('emp_id', $employeeId)->whereDate('created_at', Carbon::today())->get();
         $leave = Leave::where('emp_id', $employeeId)->whereDate('created_at', Carbon::today())->get();
         
