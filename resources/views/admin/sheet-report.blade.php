@@ -175,7 +175,28 @@ body::-webkit-scrollbar-thumb {
             });
 
             $('.table').dataTable( {
-                "searching": false
+                "searching": false,
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [ 0, 1, 2 ]
+                        }
+                    },
+                    'colvis'
+                ]
             } );
         });
 
